@@ -23,20 +23,22 @@ class ViewController: UIViewController {
 
         // This works on iOS 15.7 and earlier but not on iOS 16
         // Expected result = Version: 1.0 (1)
+        // Running from TestFlight does not cause any crash, only when building from Xcode (tested on both 13 & 14)
         label.text = Localized.string(for: "app_version", with: "\(appVersion) (\(appBuild))")
         
-        // This works on both iOS 15 and iOS 16
+        // Translation without arguments works on both iOS 15 & 16
 //        label.text = Localized.string(for: "hello")
     }
 }
 
+// MARK: - Helper
 public struct Localized {
-    public static func string(for key: String) -> String {
-        return string(for: key, in: Bundle.main)
-    }
-    
     public static func string(for key: String, with argument: String) -> String {
         return String.localizedStringWithFormat(Localized.string(for: key), argument)
+    }
+
+    public static func string(for key: String) -> String {
+        return string(for: key, in: Bundle.main)
     }
 
     public static func string(for key: String, in bundle: Bundle) -> String {
